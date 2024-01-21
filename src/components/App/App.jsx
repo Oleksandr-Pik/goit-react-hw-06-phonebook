@@ -48,8 +48,6 @@ const App = () => {
 
   const visibleContacts = getVisibleContacts();
 
-  // const visibleContacts = contacts;
-
   return (
     <Container>
       <Toaster
