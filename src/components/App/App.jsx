@@ -1,36 +1,33 @@
-import { useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
 import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
 import { Container } from './App.styled';
+import { toast } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast'
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, deleteContact } from '../../redux/contacts/contactsSlice';
+import { setFilter } from '../../redux//filter/filterSlice';
 
 const App = () => {
-  const [contacts, setContacts] = useState(
-    JSON.parse(window.localStorage.getItem('contacts')) ?? []
-  );
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector((state)=>state.contacts)
+  const filter = useSelector((state)=>state.filter)
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const dispatch = useDispatch();
 
-  const createContact = data => {
+  const handleAddContact = data => {
     if (isContactAlreadyExist(contacts, data)) {
-      alert(`${data.name} is already in contact`);
+      toast.error(`${data.name} is already in contact`);
       return;
     }
 
-    const newContact = {
-      id: nanoid(10),
-      ...data,
-    };
-
-    setContacts([newContact, ...contacts]);
+    console.log('data', data)
+    dispatch(addContact(data));
+    toast.success("Create new contact successfully")
   };
 
-  const deleteContact = contactId => {
-    setContacts(contacts.filter(contact => contact.id !== contactId));
+  const handleDeleteContact = contactId => {
+    dispatch(deleteContact(contactId))
+    toast.error("Delete contact successfully");
   };
 
   const isContactAlreadyExist = (contacts, data) => {
@@ -38,7 +35,7 @@ const App = () => {
   };
 
   const changeFilter = e => {
-    setFilter(e.target.value);
+    dispatch(setFilter(e.target.value));
   };
 
   const getVisibleContacts = () => {
@@ -51,10 +48,18 @@ const App = () => {
 
   const visibleContacts = getVisibleContacts();
 
+  // const visibleContacts = contacts;
+
   return (
     <Container>
+      <Toaster
+				position='top-center'
+				toastOptions={{
+					duration: 1500,
+				}}
+			/>
       <h1>Phonebook</h1>
-      <ContactForm contacts={contacts} createContact={createContact} />
+      <ContactForm contacts={contacts} addContact={handleAddContact} />
 
       <h2>Contacts</h2>
       <Filter filter={filter} onChange={changeFilter} />
@@ -62,7 +67,7 @@ const App = () => {
       {visibleContacts.length ? (
         <ContactList
           contacts={visibleContacts}
-          onDeleteContact={deleteContact}
+          onDeleteContact={handleDeleteContact}
         />
       ) : (
         'No contacts'

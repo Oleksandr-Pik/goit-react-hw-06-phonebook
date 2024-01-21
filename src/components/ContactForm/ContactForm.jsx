@@ -1,16 +1,10 @@
 import { useState } from 'react';
+// import { toast } from 'react-hot-toast';
 import { Button, Form, Input } from './ContactForm.styled';
 
-const ContactForm = ({ createContact }) => {
+const ContactForm = ({ addContact }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  // const handleNameChange = event => {
-  //   setName(event.target.value);
-  // };
-  // const handleNumberChange = event => {
-  //   setNumber(event.target.value);
-  // };
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -27,9 +21,9 @@ const ContactForm = ({ createContact }) => {
     }
   };
 
-  const handleAddContact = e => {
+  const createContact = e => {
     e.preventDefault();
-    createContact({
+    addContact({
       name,
       number,
     });
@@ -38,7 +32,7 @@ const ContactForm = ({ createContact }) => {
   };
 
   return (
-    <Form onSubmit={handleAddContact}>
+    <Form onSubmit={createContact}>
       <label htmlFor="name">Name</label>
       <Input
         type="text"
