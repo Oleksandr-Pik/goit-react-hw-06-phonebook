@@ -51,7 +51,7 @@ const App = () => {
   return (
     <Container>
       <Toaster
-				position='top-center'
+				position='top-right'
 				toastOptions={{
 					duration: 1500,
 				}}

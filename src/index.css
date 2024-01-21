@@ -16,6 +16,8 @@ code {
 
 button {
   cursor: pointer;
+  padding: 4px 14px;
+  border-radius: 5px;
 }
 
 button:hover,

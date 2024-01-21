@@ -39,6 +39,7 @@ const ContactForm = ({ addContact }) => {
         id="name"
         required
         onChange={handleChange}
+        placeholder="Enter name"
         value={name}
       />
       <label htmlFor="number">Number</label>
@@ -48,6 +49,7 @@ const ContactForm = ({ addContact }) => {
         id="number"
         required
         onChange={handleChange}
+        placeholder="Enter number"
         value={number}
       />
       <Button type="submin">Add contact</Button>

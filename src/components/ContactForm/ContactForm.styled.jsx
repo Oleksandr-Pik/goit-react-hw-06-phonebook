@@ -5,12 +5,16 @@ export const Form = styled.form`
   flex-direction: column;
   width: 300px;
   outline: 1px solid;
-  padding: 10px;
+  padding: 30px;
+  /* padding: 4px 14px; */
+  border-radius: 5px;
 `;
 
 export const Input = styled.input`
-  width: 200px;
+  width: 250px;
   margin-bottom: 20px;
+  padding: 4px 14px;
+  border-radius: 5px;
 
   &:hover,
   &:focus {
@@ -20,4 +24,5 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   width: fit-content;
+  cursor: pointer;
 `;
