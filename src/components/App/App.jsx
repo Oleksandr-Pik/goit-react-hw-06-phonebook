@@ -8,9 +8,6 @@ import { useSelector } from 'react-redux';
 import { getContactsFilter, getContactsList } from '../../redux/selectors';
 
 const App = () => {
-  
-
-  
   return (
     <Container>
       <Toaster
@@ -25,13 +22,7 @@ const App = () => {
       <h2>Contacts</h2>
       <Filter />
 
-      {/* {visibleContacts.length ? ( */}
-        <ContactList 
-        // contacts={visibleContacts} 
-        />
-      {/* ) : (
-        'No contacts'
-      )} */}
+      <ContactList />
     </Container>
   );
 };
