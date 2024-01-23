@@ -2,9 +2,13 @@ import React from 'react';
 import ContactListItem from 'components/ContactListItem';
 import { toast } from 'react-hot-toast';
 import { deleteContact } from '../../redux/contacts/contactsSlice';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContactsList, getContactsFilter } from '../../redux/selectors';
 
-const ContactList = ({ contacts }) => {
+const ContactList = () => {
+  const contacts = useSelector(getContactsList);
+  const filter = useSelector(getContactsFilter);
+
   const dispatch = useDispatch();
 
   const handleDeleteContact = contactId => {
@@ -12,17 +16,32 @@ const ContactList = ({ contacts }) => {
     toast.error('Delete contact successfully');
   };
 
+  const getVisibleContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLocaleLowerCase().includes(normalizedFilter)
+    );
+  };
+
+  const visibleContacts = getVisibleContacts();
+
   return (
-    <ul>
-      {contacts.map(contact => (
-        <li key={contact.id}>
-          <ContactListItem
-            contact={contact}
-            onDeleteContact={handleDeleteContact}
-          />
-        </li>
-      ))}
-    </ul>
+    <>
+      {visibleContacts.length > 0 ? (
+        <ul>
+          {visibleContacts.map(contact => (
+            <li key={contact.id}>
+              <ContactListItem
+                contact={contact}
+                onDeleteContact={handleDeleteContact}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No contacts</p>
+      )}
+    </>
   );
 };
 

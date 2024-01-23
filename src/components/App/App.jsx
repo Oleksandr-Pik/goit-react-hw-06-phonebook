@@ -8,18 +8,9 @@ import { useSelector } from 'react-redux';
 import { getContactsFilter, getContactsList } from '../../redux/selectors';
 
 const App = () => {
-  const contacts = useSelector(getContactsList);
-  const filter = useSelector(getContactsFilter);
+  
 
-  const getVisibleContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLocaleLowerCase().includes(normalizedFilter)
-    );
-  };
-
-  const visibleContacts = getVisibleContacts();
-
+  
   return (
     <Container>
       <Toaster
@@ -34,11 +25,13 @@ const App = () => {
       <h2>Contacts</h2>
       <Filter />
 
-      {visibleContacts.length ? (
-        <ContactList contacts={visibleContacts} />
-      ) : (
+      {/* {visibleContacts.length ? ( */}
+        <ContactList 
+        // contacts={visibleContacts} 
+        />
+      {/* ) : (
         'No contacts'
-      )}
+      )} */}
     </Container>
   );
 };
