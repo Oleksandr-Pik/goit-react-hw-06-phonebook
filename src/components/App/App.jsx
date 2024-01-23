@@ -4,9 +4,6 @@ import Filter from 'components/Filter';
 import { Container } from './App.styled';
 import { Toaster } from 'react-hot-toast';
 
-import { useSelector } from 'react-redux';
-import { getContactsFilter, getContactsList } from '../../redux/selectors';
-
 const App = () => {
   return (
     <Container>
